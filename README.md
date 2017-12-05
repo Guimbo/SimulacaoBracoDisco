@@ -19,6 +19,9 @@ Clone the repository and run the ***index.html*** with a browser
 - [ ] SCAN
 - [ ] C-SCAN
 
+#### References
+
+http://www.cs.iit.edu/~cs561/cs450/disksched/disksched.html
 
 #### Developers
 
