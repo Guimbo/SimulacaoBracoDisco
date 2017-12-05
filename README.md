@@ -1,27 +1,27 @@
-#  Trabalho de Sistemas Operacionais
+# Operacial System discipline's homework
 
-### Objetivo
+### Objective
 
-Simular os seguintes algoritmos de escalonamento de braço do disco: 
-- FIFO (First in, first out)
-- SSF (Shortest seek first)
-- SCAN
-- SCAN Circular (C - SCAN)
+Simulate the following Disk Scheduling Algorithm In Operating System:
+- First Come-First Serve (FCFS)
+- Shortest Seek Time First (SSF)
+- Elevator (SCAN)
+- Circular Scan (C - SCAN)
 
-#### Uso
+#### Usage
 
-Clone o repositorio e execute o ***index.html***
+Clone the repository and run the ***index.html*** with a browser
 
-#### Algoritmos
+#### Algorithms
 
-- [ ] FIFO
+- [ ] FCFS
 - [ ] SSF
 - [ ] SCAN
 - [ ] C-SCAN
 
 
-#### Desenvolvedores
+#### Developers
 
-- [Daniel Silva Alves Barbosa]()
+- Daniel Silva Alves Barbosa
 - [Guilherme Araujo da Silva](https://github.com/Guimbo)
 - [José Yuri Lima Lira](https://github.com/yurilimace)
