@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>Escalonamento</title>
+  <link rel="shortcut icon" type="image/x-icon" href="http://www.iconhot.com/icon/png/devine-icons-part-2/128/hdd-3.png">
+</head>
+<body>
+  <div>
+    <form id="inputForm">
+      <fieldset>
+        <legend>Informações do Disco / Entrada</legend>
+        <p>Nº cilindros</p>
+        <input type="text" name="numCylinders">
+        <p>Posição inicial do braço (id)</p>
+        <input type="text" name="strtPosition">
+        <p>Tempo de seek (ms)</p>
+        <input type="text" name="seekTime">
+        <p>Posição do Arquivo</p>
+        <fieldset><input type="file" name="dataFile"></fieldset>
+        <p></p><button type="button" onclick="getInputData()">Simular</button>
+      </fieldset>
+    </form>
+  </div>
+  <div>
+    <fieldset>
+      <legend>Saída</legend>
+      <table style="width:100%">
+        <tr>
+          <th></th>
+          <th>Nº Deslc.</th> 
+          <th>M. Deslc.</th>
+	  <th>Var. Deslc.</th>
+          <th>D.P. Deslc.</th>
+	  <th>M. Tempo</th>
+          <th>Var. Tempo</th>
+          <th>D.P. Tempo</th>
+	  <th>DOWNLOAD</th>
+        </tr>
+        <tr>
+          <th>FIFO</th>
+          <td id='numFIFO'>--</td>
+          <td id='avgFIFO'>--</td>
+	  <td id='varFIFO'>--</td>
+          <td id='stdFIFO'>--</td>
+          <td id='avgtFIFO'>--</td>
+	  <td id='vartFIFO'>--</td>
+          <td id='stdtFIFO'>--</td>
+	  <td id='downloadFIFO'>--</td>
+        </tr>
+        <tr>
+          <th>SSF</th>
+          <td id='numSSF'>--</td>
+          <td id='avgSSF'>--</td>
+	  <td id='varSSF'>--</td>
+          <td id='stdSSF'>--</td>
+          <td id='avgtSSF'>--</td>
+	  <td id='vartSSFF'>--</td>
+          <td id='stdtSSF'>--</td>
+	  <td id='downloadSSF'>--</td>
+        </tr>
+        <tr>
+          <th>SCAN</th>
+          <td id='numSCAN'>--</td>
+          <td id='avgSCAN'>--</td>
+	  <td id='varSCAN'>--</td>
+          <td id='stdSCAN'>--</td>
+          <td id='avgtSCAN'>--</td>
+	  <td id='vartSCAN'>--</td>
+          <td id='stdtSCAN'>--</td>
+          <td id='downloadSCAN'>--</td>
+        </tr>
+        <tr>
+          <th>C-SCAN</th>
+          <td id='numCSCAN'>--</td>
+          <td id='avgCSCAN'>--</td>
+	  <td id='varCSCAN'>--</td>
+          <td id='stdCSCAN'>--</td>
+          <td id='avgtCSCAN'>--</td>
+	  <td id='vartCSCAN'>--</td>
+          <td id='stdtCSCAN'>--</td>
+	  <td id='downloadCSCAN'>--</td>
+        </tr>
+      </table>
+    </fieldset>
+  </div>
+  <script src='main.js'></script>
+</body>
