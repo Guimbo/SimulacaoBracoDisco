@@ -14,8 +14,8 @@ Clone the repository and run the ***index.html*** with a browser
 
 #### Algorithms
 
-- [ ] FCFS
-- [ ] SSF
+- [x] FCFS
+- [x] SSF
 - [ ] SCAN
 - [ ] C-SCAN
 
