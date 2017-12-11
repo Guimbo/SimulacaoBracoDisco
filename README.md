@@ -16,7 +16,7 @@ Clone the repository and run the ***index.html*** with a browser
 
 - [x] FCFS
 - [x] SSF
-- [ ] SCAN
+- [x] SCAN
 - [ ] C-SCAN
 
 #### References

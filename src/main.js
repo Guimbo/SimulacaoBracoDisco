@@ -18,9 +18,9 @@ var outputFIFO
 var inputSSF
 var outputSSF = []
 var inputSCAN
-var outputSCAN
+var outputSCAN = []
 var inputCSCAN
-var outputCSCAN
+var outputCSCAN = []
 
 //table
 var numFIFO = document.getElementById('numFIFO')
@@ -61,12 +61,15 @@ var downloadCSCAN = document.getElementById('downloadCSCAN')
 
 
 
-//
+//Auxiliars Algorithms
+function sortNumber(a, b) {
+  return a - b
+}
 
 //Disk Scheduling Algorithms
 function FIFO() {
   inputFIFO = fileTextArray.slice()
-  outputFIFO = inputFIFO.join
+  outputFIFO = inputFIFO
   var position = strtPosition
   var count = 0
   var average = 0
@@ -95,6 +98,7 @@ function FIFO() {
 
 function SSF() {
   inputSSF = fileTextArray.slice()
+  outputSSF = []
   var position = strtPosition
   var index = 0
   var arrayLength = inputSSF.length
@@ -110,7 +114,8 @@ function SSF() {
     }
     count += Math.abs(position - inputSSF[index])
     position = inputSSF[index]
-    outputSSF.push(inputSSF.splice(index,1)).join
+    outputSSF.push(inputSSF[index])
+    inputSSF.splice(index,1)
     arrayLength = inputSSF.length
   }
   inputSSF = fileTextArray.slice()
@@ -143,12 +148,107 @@ function SSF() {
 }
 
 function SCAN() {
-  inputSCAN = fileTextArray
+  inputSCAN = fileTextArray.slice()
+  outputSCAN = []
+  var lowerHalf = []
+  var dist = []
+  var position = strtPosition
+  var index = 0
+  var arrayLength = inputSCAN.length
+  var count = 0
+  var average = 0
+  var variance = 0
+  inputSCAN.sort(sortNumber)
+  for(var i = 0; inputSCAN[i] < position; ) {
+    lowerHalf.push(inputSCAN[i])
+    inputSCAN.splice(index, 1)
+  }
+  dist.push(position - lowerHalf[lowerHalf.length - 1])
+  dist.push(inputSCAN[0] - position)
+  
+  if (dist[0] > dist [1]) {
+    for(; inputSCAN.length > 0;) {
+      count += Math.abs(position - inputSCAN[0])
+      position = inputSCAN[0]
+      outputSCAN.push(inputSCAN[0])
+      inputSCAN.splice(0,1)
+    }
+    count += Math.abs(position - numCylinders)
+    position = numCylinders
+    for(var i = lowerHalf.length-1; i > -1; i--) {
+      count += Math.abs(position - lowerHalf[i])
+      position = lowerHalf[i]
+      outputSCAN.push(lowerHalf[i])
+      lowerHalf.pop
+    }
+  } else {
+    for(var i = lowerHalf.length-1; i > -1; i--) {
+      count += Math.abs(position - lowerHalf[i])
+      position = lowerHalf[i]
+      outputSCAN.push(lowerHalf[i])
+      lowerHalf.pop
+    }
+    count += Math.abs(position - 0)
+    position = 0
+    for(; inputSCAN.length > 0;) {
+      count += Math.abs(position - inputSCAN[0])
+      position = inputSCAN[0]
+      outputSCAN.push(inputSCAN[0])
+      inputSCAN.splice(0,1)
+    }
+  }
+  position = strtPosition
+  inputSCAN = fileTextArray.slice()
+  inputSCAN.sort(sortNumber)
+  for(var i = 0; inputSCAN[i] < position; ) {
+    inputSCAN.splice(index, 1)
+  }
+  average = count / arrayLength
 
+  if (dist[0] > dist [1]) {
+    for(; inputSCAN.length > 0;) {
+      variance += Math.pow( (Math.abs(position - inputSCAN[0]) - average) ,2)
+      position = inputSCAN[0]
+      inputSCAN.splice(0,1)
+    }
+    for(var i = lowerHalf.length-1; i > -1; i--) {
+      variance += Math.pow( (Math.abs(position - lowerHalf[i]) - average) ,2)
+      position = lowerHalf[i]
+      lowerHalf.pop
+    }
+  } else {
+    for(var i = lowerHalf.length-1; i > -1; i--) {
+      variance += Math.pow( (Math.abs(position - lowerHalf[i]) - average) ,2)
+      position = lowerHalf[i]
+      lowerHalf.pop
+    }
+    for(; inputSCAN.length > 0;) {
+      variance += Math.pow( (Math.abs(position - inputSCAN[0]) - average) ,2)
+      position = inputSCAN[0]
+      inputSCAN.splice(0,1)
+    }
+  }
+  variance /= arrayLength
+  numSCAN.innerHTML = count
+  avgSCAN.innerHTML = average
+  varSCAN.innerHTML = variance
+  stdSCAN.innerHTML = Math.sqrt(variance)
+  avgtSCAN.innerHTML = count * seekTime
+  variance *= Math.pow(seekTime, 2)
+  vartSCAN.innerHTML = variance
+  stdtSCAN.innerHTML = Math.sqrt(variance)
 }
 
 function CSCAN() {
-  inputCSCAN = fileTextArray
+  inputCSCAN = fileTextArray.slice()
+  outputCSCAN = []
+  var pisition = strtPosition
+  var index = 0
+  var arrayLength = inputSCAN.length
+  var count = 0
+  var average = 0
+  var variance = 0
+  inputSCAN.sort(sortNumber)
 
 }
 
@@ -176,8 +276,8 @@ function Compute() {
 
 //Make downloadable files
 function enableDownload() {
-  downloadFIFO.innerHTML = `<a href='data:plain/text;charset=utf-8,${outputFIFO}' download='fifo.${filenameExtension}'>output FIFO</a>`
-  downloadSSF.innerHTML  = `<a href='data:plain/text;charset=utf-8,${outputSSF}' download='ssf.${filenameExtension}'>output SSF</a>`
-  downloadSCAN.innerHTML = `<a href='data:plain/text;charset=utf-8,${outputSCAN}' download='scan.${filenameExtension}'>output SCAN</a>`
-  downloadCSCAN.innerHTML = `<a href='data:plain/text;charset=utf-8,${outputCSCAN}' download='cscan.${filenameExtension}'>output CSCAN</a>`
+  downloadFIFO.innerHTML = `<a href='data:plain/text;charset=utf-8,${outputFIFO.join()}' download='fifo.${filenameExtension}'>output FIFO</a>`
+  downloadSSF.innerHTML  = `<a href='data:plain/text;charset=utf-8,${outputSSF.join()}' download='ssf.${filenameExtension}'>output SSF</a>`
+  downloadSCAN.innerHTML = `<a href='data:plain/text;charset=utf-8,${outputSCAN.join()}' download='scan.${filenameExtension}'>output SCAN</a>`
+  downloadCSCAN.innerHTML = `<a href='data:plain/text;charset=utf-8,${outputCSCAN.join()}' download='cscan.${filenameExtension}'>output CSCAN</a>`
 }
